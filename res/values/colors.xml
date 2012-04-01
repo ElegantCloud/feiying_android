@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="divider_line">#888c8d92</color>
+	<color name="white">#ffffff</color>
+	<color name="black">#000000</color>
+	<color name="blue">#6577e2</color>
+	<color name="light_blue">#7da6d1</color>
+	<color name="orange">#ee9d75</color>
+	<color name="gray">#707070</color>
+	<color name="transparent">#00000000</color>
+	<color name="light_red">#eab9b9</color>
+</resources>

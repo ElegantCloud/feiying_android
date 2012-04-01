@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/mul_select_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <EditText
+            android:id="@+id/mul_select_search_et"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/mul_select_clear_bt"
+            android:hint="@string/search_contacts"
+            android:inputType="textCapCharacters"
+            android:singleLine="true" >
+        </EditText>
+
+        <Button
+            android:id="@+id/mul_select_clear_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="onClear"
+            android:text="@string/clear" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/mul_select_contact_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/mul_select_bottom"
+        android:layout_below="@+id/mul_select_top"
+        android:divider="@color/divider_line"
+        android:dividerHeight="1dip" >
+    </ListView>
+
+    <TableLayout
+        android:id="@+id/mul_select_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="*" >
+
+        <TableRow >
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="2dip"
+                android:layout_marginTop="8dip"
+                android:onClick="onDone"
+                android:text="@string/done" />
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dip"
+                android:layout_marginLeft="2dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginTop="8dip"
+                android:onClick="onBack"
+                android:text="@string/cancel" >
+            </Button>
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

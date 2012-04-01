@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/share_top_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_marginBottom="8dip"
+        android:background="@drawable/title_bar_bg"
+        android:paddingTop="10dip" >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dip"
+            android:background="@color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/share"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,2" >
+
+        <TableRow >
+
+            <Button
+                android:id="@+id/share_come_bt"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:background="@drawable/gray_bg"
+                android:onClick="onShareReceive"
+                android:text="@string/feilai"
+                android:textColor="@color/black" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="40dip"
+                android:background="#88ffffff" />
+
+            <Button
+                android:id="@+id/share_go_bt"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:background="@color/transparent"
+                android:onClick="onShareSend"
+                android:text="@string/feiqu"
+                android:textColor="@color/white" />
+        </TableRow>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="#88ffffff" />
+    </TableLayout>
+
+    <ListView
+        android:id="@+id/share_video_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/divider_line"
+        android:dividerHeight="1dip" >
+    </ListView>
+
+</LinearLayout>

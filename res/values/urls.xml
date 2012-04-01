@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+      <string name="host">http://fy.walkwork.net/feixun</string> 
+   <!--<string name="host">http://192.168.1.13/feixun</string>-->
+    <string name="login_url">/mobile/system/login</string>
+    <string name="video_list">/mobile/video</string>
+    <string name="video_info_url">/mobile/info</string>
+    <string name="get_auth_code_url">/mobile/system/getPhoneCode</string>
+    <string name="reglogin_url">/mobile/system/reglogin</string>
+    <string name="check_code_url">/mobile/system/checkPhoneCode</string>
+    <string name="reg_user_url">/mobile/system/regUser</string>
+    <string name="record_play_count_url">/mobile/recordPlayCount</string>
+    <string name="favor_op_url">/mobile/fav</string>
+    <string name="favor_channel_getlist_url">/mobile/fav/channellist</string>
+    <string name="favor_video_list_url">/mobile/fav/channel</string>
+    <string name="share_add_url">/mobile/share/add</string>
+    <string name="share_send_del_url">/mobile/share/del</string>
+    <string name="share_send_video_list_url">/mobile/share/list</string>
+    <string name="share_video_receivers_url">/mobile/share/recvs</string>
+    <string name="share_receive_video_list_url">/mobile/recv/list</string>
+    <string name="share_receive_del_url">/mobile/recv/del</string>
+    <string name="web_play_url">/play</string>
+    <string name="search_url">/mobile/search</string>
+    <string name="keywords_url">/keywords</string>
+    <string name="version_get_url">/version/android</string>
+    <string name="app_download_url">/appget/android</string>
+    <string name="feedback_url">/feedback</string>
+	<string name="business_open_notify_url">/business/opennotify</string>
+	<string name="business_status_get_url">/business/getstatus</string>
+	<string name="authenticate_url">/mobile/system/auth</string>
+</resources>

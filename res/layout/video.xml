@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center" >
+
+    <RelativeLayout
+        android:id="@+id/rlVideo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#0000ff00" >
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlController"
+        android:layout_width="fill_parent"
+        android:layout_height="320dip"
+        android:layout_centerInParent="true"
+        android:background="#00ff0000" >
+
+        <RelativeLayout
+            android:id="@+id/llHeader"
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:background="#7f000000" >
+
+            <Button
+                android:id="@+id/doneButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bt_short_bg"
+                android:textColor="@drawable/bt_fg"
+                android:text="@string/sBackButton" />
+
+            <RelativeLayout
+                android:id="@+id/rlHeaderSeek"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_toLeftOf="@+id/refreshButton"
+                android:layout_toRightOf="@+id/doneButton" >
+
+                <TextView
+                    android:id="@+id/positionTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dip"
+                    android:text="@string/sTime" />
+
+                <SeekBar
+                    android:id="@+id/videoSeekBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="4dip"
+                    android:layout_marginRight="4dip"
+                    android:layout_toLeftOf="@+id/totalTime"
+                    android:layout_toRightOf="@+id/positionTime" />
+
+                <TextView
+                    android:id="@+id/totalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
+                    android:text="@string/sTime" />
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/refreshButton"
+                android:layout_width="60dip"
+                android:layout_height="40dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="@string/sRefreshButton"
+                android:visibility="invisible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBottom"
+            android:layout_width="300dip"
+            android:layout_height="86dip"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dip"
+            android:background="#7f000000" >
+
+            <Button
+                android:id="@+id/rewindButton"
+                android:layout_width="60dip"
+                android:layout_height="40dip"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="6dip"
+                android:layout_toLeftOf="@+id/playPauseButton"
+                android:background="@drawable/p_rewind" />
+
+            <Button
+                android:id="@+id/playPauseButton"
+                android:layout_width="60dip"
+                android:layout_height="40dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dip"
+                android:background="@drawable/p_pause" />
+
+            <Button
+                android:id="@+id/fastForwardButton"
+                android:layout_width="60dip"
+                android:layout_height="40dip"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="6dip"
+                android:layout_toRightOf="@+id/playPauseButton"
+                android:background="@drawable/p_fastforward" />
+
+            <SeekBar
+                android:id="@+id/volumeSeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="6dip"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="8dip" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlFrontScreen"
+        android:layout_width="fill_parent"
+        android:layout_height="320dip"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#ff000000" >
+
+        <ImageView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dip"
+            android:layout_above="@+id/progress"/>
+        
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@android:style/Widget.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/progressMSG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progress"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dip"
+            android:text="@string/sVideoLoading" />
+    </RelativeLayout>
+
+</FrameLayout>

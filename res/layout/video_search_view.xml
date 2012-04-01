@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/video_search_top_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dip"
+        android:background="@drawable/title_bar_bg"
+        android:paddingTop="10dip" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dip"
+            android:background="@drawable/bt_short_bg"
+            android:onClick="onBack"
+            android:text="@string/sBackButton"
+            android:textColor="@drawable/bt_fg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/search"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/video_search_top_bar"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/video_search_input_field"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/video_search_button"
+                android:hint="@string/search_video_lib"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/video_search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="5dip"
+                android:background="@drawable/bt_short_bg"
+                android:onClick="onSearch"
+                android:text="@string/search"
+                android:textColor="@drawable/bt_fg" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dip"
+            android:paddingBottom="5dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="10dip"
+            android:text="@string/hot_keywords"
+            android:textStyle="bold"
+            android:background="#4c4747"
+            android:textColor="#d23a3a"
+            android:textSize="20dip" />
+
+        <ListView
+            android:id="@+id/video_keywords_list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:divider="#2b2b2b"
+            android:dividerHeight="1dip" >
+        </ListView>
+    </LinearLayout>
+
+</RelativeLayout>

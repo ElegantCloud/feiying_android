@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <EditText
+        android:id="@+id/codeinput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginTop="5dip"
+        android:singleLine="true"
+        android:inputType="number"
+        android:hint="@string/input_sms_auth_code" >
+    </EditText>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/code_check_next_button"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:text="@string/nextstep" >
+        </Button>
+
+        <Button
+            android:id="@+id/code_check_cancelButton"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dip"
+            android:text="@string/cancel" >
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>
