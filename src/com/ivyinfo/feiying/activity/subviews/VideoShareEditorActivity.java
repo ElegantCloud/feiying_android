@@ -103,7 +103,7 @@ public class VideoShareEditorActivity extends Activity {
 
 	public void onSendShare(View v) {
 		String shareInfo = composeMsg();
-		
+
 		try {
 			String receiver = getReceiver();
 			List<String> receiverList = getReceivers();
@@ -149,7 +149,7 @@ public class VideoShareEditorActivity extends Activity {
 				break;
 			case 400:
 				// auth failed, alert user to re-login
-				message.what =MsgCodeDefine.MSG_ACCOUNT_NEED_RELOGIN;
+				message.what = MsgCodeDefine.MSG_ACCOUNT_NEED_RELOGIN;
 				break;
 			default:
 				message.what = MsgCodeDefine.MSG_ERROR;
@@ -177,7 +177,7 @@ public class VideoShareEditorActivity extends Activity {
 					// extract the phone number from receiver
 					String[] numbers = TextUtility
 							.splitText(receiver, "<", ">");
-					if (numbers.length > 0) {
+					if (numbers != null && numbers.length > 0) {
 						String number = numbers[0];
 						if (ValidatePattern.isValidMobilePhone(number)) {
 							receiverSB.append(number).append(',');
@@ -196,7 +196,8 @@ public class VideoShareEditorActivity extends Activity {
 				}
 			}
 		} else {
-			throw new Exception(getString(R.string.no_receiver_found));
+			String info = getString(R.string.no_receiver_found);
+			throw new Exception(info);
 		}
 		if (receiverSB.toString().endsWith(",")) {
 			receiverSB.deleteCharAt(receiverSB.length() - 1);
@@ -235,7 +236,8 @@ public class VideoShareEditorActivity extends Activity {
 				}
 			}
 		} else {
-			throw new Exception(getString(R.string.no_receiver_found));
+			String info = getString(R.string.no_receiver_found);
+			throw new Exception(info);
 		}
 		return recevierList;
 	}
@@ -344,7 +346,8 @@ public class VideoShareEditorActivity extends Activity {
 											int which) {
 										login();
 									}
-								}).setNegativeButton(R.string.cancel, null).show();
+								}).setNegativeButton(R.string.cancel, null)
+						.show();
 				break;
 			default:
 				Toast.makeText(VideoShareEditorActivity.this,
@@ -354,7 +357,7 @@ public class VideoShareEditorActivity extends Activity {
 
 		}
 	}
-	
+
 	protected void login() {
 		Intent intent = new Intent();
 		intent.setClass(this, RegisterAndLoginActivity.class);

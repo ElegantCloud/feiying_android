@@ -3,6 +3,7 @@ package com.ivyinfo.feiying.activity.other;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,7 +32,8 @@ public class FeedbackActivity extends Activity {
 	private TextView charsTV;
 	private MessageHandler messageHandler;
 	private FeedbackTypes type = FeedbackTypes.problem;
-
+	private ProgressDialog progressDialog;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feedback_view);
@@ -108,6 +110,9 @@ public class FeedbackActivity extends Activity {
 	};
 
 	public void onSubmit(View v) {
+		progressDialog = ProgressDialog.show(this, null,
+				getString(R.string.submitting_feedback), true);
+		
 		String comment = commentET.getText().toString().trim();
 		String user = userET.getText().toString().trim();
 		if (comment.equals("")) {
@@ -141,6 +146,9 @@ public class FeedbackActivity extends Activity {
 
 		@Override
 		public void handleMessage(Message message) {
+			if (progressDialog != null) {
+				progressDialog.dismiss();
+			}
 			switch (message.what) {
 			case MsgCodeDefine.MSG_ON_FEEDBACK_RETURN:
 				Toast.makeText(FeedbackActivity.this,

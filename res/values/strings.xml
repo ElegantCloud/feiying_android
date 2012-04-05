@@ -139,6 +139,7 @@
     <string name="submit_feedback">提交反馈</string>
     <string name="contact_way">联系方式(手机/Email)</string>
     <string name="pls_input_feedback_comment">请填写反馈内容！</string>
+    <string name="submitting_feedback">正在提交反馈...</string>
     <string name="feedback_submit_ok">反馈提交成功，感谢您的支持！</string>
     <string name="select_type">选择类型</string>
     <string name="open_business_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可看视频免流量费，不占用原有套餐流量。</string>
