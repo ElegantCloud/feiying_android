@@ -344,7 +344,7 @@ public class VideoShareEditorActivity extends Activity {
 											int which) {
 										login();
 									}
-								}).show();
+								}).setNegativeButton(R.string.cancel, null).show();
 				break;
 			default:
 				Toast.makeText(VideoShareEditorActivity.this,

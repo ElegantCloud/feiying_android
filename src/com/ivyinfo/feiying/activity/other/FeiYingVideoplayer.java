@@ -8,6 +8,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.http.HttpEntity;
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -19,6 +21,8 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -34,8 +38,13 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.ivyinfo.feiying.android.R;
+import com.ivyinfo.feiying.http.HttpUtils;
+import com.ivyinfo.feiying.http.HttpUtils.ResponseListener;
 
 public class FeiYingVideoplayer extends Activity {
+	private static final int MSG_PLAY_VIDEO = 100;
+	private static final int MSG_CANNOT_PLAY = 101;
+	private MessageHandler messageHandler;
 
 	private static final String TAG = "FeiYingVideoplayer";
 
@@ -99,7 +108,7 @@ public class FeiYingVideoplayer extends Activity {
 		super.onCreate(savedInstanceState);
 		// set content view
 		setContentView(R.layout.video);
-
+		messageHandler = new MessageHandler(Looper.myLooper());
 		// set handle
 		handler = new Handler();
 
@@ -111,7 +120,22 @@ public class FeiYingVideoplayer extends Activity {
 
 		// get intent param and set video uri
 		Bundle bundle = getIntent().getExtras();
-		mVideoUri = Uri.parse(bundle.getString("videoUrl"));
+		String videoUrl = bundle.getString("videoUrl");
+		mVideoUri = Uri.parse(videoUrl);
+
+		HttpUtils.startHttpHead(videoUrl, new HttpUtils.HeadResponseListener() {
+
+			@Override
+			public void onComplete(int status, HttpEntity entity) {
+				Log.d(TAG, "status: " + status);
+				if (entity != null) {
+					messageHandler.sendEmptyMessage(MSG_PLAY_VIDEO);
+				} else {
+					messageHandler.sendEmptyMessage(MSG_CANNOT_PLAY);
+				}
+			}
+		}, null);
+
 		Log.d(TAG, "video uri = " + mVideoUri);
 		if (mVideoUri.toString().equals("")) {
 			mVideoUri = Uri.parse("http://192.168.1.233/video/youku_small.mp4");
@@ -136,8 +160,7 @@ public class FeiYingVideoplayer extends Activity {
 
 		// set videoView
 		mVideoView = (VideoView) findViewById(R.id.videoView);
-		// set videoUri
-		mVideoView.setVideoURI(mVideoUri);
+
 		// set video focus
 		mVideoView.requestFocus();
 		// set videoView touch event
@@ -170,12 +193,13 @@ public class FeiYingVideoplayer extends Activity {
 			public boolean onError(MediaPlayer mp, int what, int extra) {
 				Log.e(TAG, "video play error.");
 
-				Toast toast = Toast.makeText(FeiYingVideoplayer.this,
-						R.string.play_video_error, Toast.LENGTH_LONG);
-				toast.show();
+//				Toast toast = Toast.makeText(FeiYingVideoplayer.this,
+//						R.string.play_video_error, Toast.LENGTH_LONG);
+//				toast.show();
+//
+//				finish();
 
-				finish();
-
+				cannotPlay();
 				return false;
 			}
 		});
@@ -344,6 +368,14 @@ public class FeiYingVideoplayer extends Activity {
 		mVolumeSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
 	}
 
+	private void cannotPlay() {
+		Toast toast = Toast.makeText(FeiYingVideoplayer.this,
+				R.string.play_video_error, Toast.LENGTH_LONG);
+		toast.show();
+
+		finish();
+	}
+	
 	// set button clicked listener
 	private OnClickListener buttonClickedListener = new OnClickListener() {
 
@@ -568,4 +600,23 @@ public class FeiYingVideoplayer extends Activity {
 				mPositionWhenPS));
 	}
 
+	class MessageHandler extends Handler {
+		public MessageHandler(Looper looper) {
+			super(looper);
+		}
+
+		@Override
+		public void handleMessage(Message message) {
+			switch (message.what) {
+			case MSG_PLAY_VIDEO:
+				mVideoView.setVideoURI(mVideoUri);
+				break;
+			case MSG_CANNOT_PLAY:
+				cannotPlay();
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }

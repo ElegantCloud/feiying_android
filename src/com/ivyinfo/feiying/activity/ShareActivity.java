@@ -366,7 +366,8 @@ public class ShareActivity extends BaseListActivity {
 											int which) {
 										onLogin(null);
 									}
-								}).show();
+								}).setNegativeButton(R.string.cancel, null)
+						.show();
 				break;
 			default:
 				break;

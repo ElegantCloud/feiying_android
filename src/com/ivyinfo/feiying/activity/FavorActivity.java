@@ -248,7 +248,8 @@ public class FavorActivity extends Activity {
 											int which) {
 										onLogin(null);
 									}
-								}).show();
+								}).setNegativeButton(R.string.cancel, null)
+						.show();
 				break;
 			default:
 				Toast.makeText(FavorActivity.this, R.string.get_data_failed,

@@ -1,5 +1,6 @@
 package com.ivyinfo.feiying.http;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,11 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,6 +28,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
+import com.ivyinfo.feiying.http.HttpUtils.HeadResponseListener;
 import com.ivyinfo.feiying.http.HttpUtils.ResponseListener;
 import com.ivyinfo.feiying.utity.CommonUtil;
 import com.ivyinfo.feiying.utity.TextUtility;
@@ -46,6 +52,60 @@ public class HttpUtils {
 	static public abstract class ResponseListener {
 		public abstract void onComplete(int status, String responseText);
 	};
+
+	static public interface HeadResponseListener {
+		public void onComplete(int status, HttpEntity entity);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void doHttpHead(String uri,
+			final HeadResponseListener responseListener) {
+		DefaultHttpClient _httpClient = null;
+
+		CookieStore _cookieStore = httpClient.getCookieStore();
+
+		if (_cookieStore.getCookies() == null
+				|| _cookieStore.getCookies().size() <= 0)
+			_httpClient = httpClient;
+		else {
+			HttpParams httpParameters = new BasicHttpParams();
+			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+			HttpConnectionParams.setConnectionTimeout(httpParameters,
+					timeoutConnection);
+			_httpClient = new DefaultHttpClient(httpParameters);
+			_httpClient.setCookieStore(_cookieStore);
+		}
+
+		HttpHead head = new HttpHead(uri);
+
+		final ResponseHandler _responseHandler = new ResponseHandler() {
+
+			@Override
+			public Object handleResponse(HttpResponse response) {
+				try {
+					if (responseListener != null)
+						responseListener.onComplete(response.getStatusLine()
+								.getStatusCode(), response.getEntity());
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					if (responseListener != null)
+						responseListener.onComplete(-1, null);
+				}
+				return null;
+			}
+			// 使用ResponseHandler来创建一个异步的Http调用
+
+		};
+		// 发送请求并等待响应
+		try {
+			_httpClient.execute(head, _responseHandler);
+		} catch (Exception ex) {
+			// 网络连接失败,error code 为-1
+			if (responseListener != null)
+				responseListener.onComplete(-1, null);
+		}
+	}
 
 	public void doHttpRequest(String _uriAPI, Map<String, String> _argsMap,
 			final ResponseListener _responseListener) {
@@ -122,6 +182,8 @@ public class HttpUtils {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					if (_responseListener != null)
+						_responseListener.onComplete(-1, e.getMessage());
 				}
 				return _reponseText;
 			}
@@ -145,6 +207,20 @@ public class HttpUtils {
 		this.httpClient = httpClient;
 	}
 
+	public static HttpUtils startHttpHead(String url,
+			HeadResponseListener listener, HttpUtils httpUtil) {
+		HttpHeadRunThread httpThread = new HttpHeadRunThread();
+		httpThread.url = url;
+		httpThread.responseListener = listener;
+		if (httpUtil == null) {
+			httpUtil = new HttpUtils();
+			httpUtil.initHttpClient();
+		}
+		httpThread.httpUtils = httpUtil;
+		httpThread.start();
+		return httpUtil;
+	}
+
 	public static HttpUtils startHttpPostRequest(String url,
 			HashMap<String, String> params, ResponseListener listener,
 			HttpUtils httpUtil) {
@@ -160,7 +236,7 @@ public class HttpUtils {
 		httpThread.start();
 		return httpUtil;
 	}
-	
+
 	private static HashMap<String, String> parseParamsInTheURL(String url) {
 		HashMap<String, String> params = new HashMap<String, String>();
 		if (url != null && url.indexOf('?') > 0 && !url.endsWith("?")) {
@@ -175,7 +251,7 @@ public class HttpUtils {
 				}
 			}
 		}
-		
+
 		return params;
 	}
 
@@ -200,7 +276,7 @@ public class HttpUtils {
 			}
 		}
 		Collections.sort(paramList);
-//		printList(paramList);
+		// printList(paramList);
 
 		StringBuffer sb2 = new StringBuffer();
 		for (int i = 0; i < paramList.size(); i++) {
@@ -219,6 +295,7 @@ public class HttpUtils {
 			Log.d("walkwork", list.get(i));
 		}
 	}
+
 }
 
 class HttpRunThread extends Thread {
@@ -230,5 +307,16 @@ class HttpRunThread extends Thread {
 	public void run() {
 		if (httpUtils != null)
 			httpUtils.doHttpRequest(this.url, paramMap, responseListener);
+	}
+}
+
+class HttpHeadRunThread extends Thread {
+	public String url;
+	public HeadResponseListener responseListener;
+	public HttpUtils httpUtils;
+
+	public void run() {
+		if (httpUtils != null)
+			httpUtils.doHttpHead(this.url, responseListener);
 	}
 }

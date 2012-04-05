@@ -535,7 +535,7 @@ public abstract class BaseVideoDetailActivity extends Activity {
 									int which) {
 								login();
 							}
-						}).show();
+						}).setNegativeButton(R.string.cancel, null).show();
 	}
 
 	/**
