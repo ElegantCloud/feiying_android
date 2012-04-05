@@ -14,8 +14,8 @@ public class MsgCodeDefine {
 	public static final int MSG_ON_GET_DATA_RETURN = 9;
 	public static final int MSG_ON_UNFAVOR_RETURN = 10;
 	public static final int MSG_ON_SHARE_RETURN = 11;
-	public static final int MSG_REFRESH_RECEIVE_PEOPLE_LIST = 12;
-	public static final int MSG_REFRESH_SEND_PEOPLE_LIST = 13;
+	public static final int MSG_REFRESH_RECEIVE_LIST = 12;
+	public static final int MSG_REFRESH_SEND_LIST = 13;
 	public static final int MSG_ON_DEL_SHARE_RETURN = 14;
 	public static final int MSG_ON_GET_SHARE_RECEIVERS_RETURN = 15;
 	public static final int MSG_ON_GET_SHARE_RECEIVERS_FAILED = 16;

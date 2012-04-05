@@ -45,7 +45,8 @@ public class BaseVideoListActivity extends BaseListActivity {
 		if (videoTag.equals(VideoTag.normal.name())) {
 			HttpUtils.startHttpPostRequest(url, null, resLis, null);
 		} else {
-			HttpUtils.startHttpPostRequestWithSignature(url, null, resLis, null);
+			HttpUtils
+					.startHttpPostRequestWithSignature(url, null, resLis, null);
 		}
 	}
 
@@ -107,7 +108,7 @@ public class BaseVideoListActivity extends BaseListActivity {
 				// load more videos
 				showLoadingMoreProgressbar();
 
-				if (!nextPageURL.equals("")) {
+				if (hasNextPage) {
 					loadUrl(host + nextPageURL);
 				} else {
 					showNoMoreItemInfo();
@@ -130,6 +131,7 @@ public class BaseVideoListActivity extends BaseListActivity {
 					JSONObject jsonPager = jsonObject.getJSONObject("pager");
 					nextPageURL = jsonPager.getString(VideoConstants.nextPage
 							.name());
+					hasNextPage = jsonPager.getBoolean("hasNext");
 
 					Message message = Message.obtain();
 					message.obj = jsonObject;
@@ -164,7 +166,7 @@ public class BaseVideoListActivity extends BaseListActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				if (nextPageURL.equals("")) {
+				if (!hasNextPage) {
 					showNoMoreItemInfo();
 				} else {
 					hideLoadingMoreProgressbar();

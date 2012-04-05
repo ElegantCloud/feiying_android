@@ -23,12 +23,14 @@
     <string name="detail">详情</string>
     <string name="time">时长：</string>
     <string name="size">大小：</string>
+    <string name="channel_2">频道：</string>
     <string name="play">播放</string>
     <string name="share">分享</string>
     <string name="fav">收藏</string>
     <string name="delete">删除</string>
     <string name="unfavor">取消收藏</string>
     <string name="movie">电影</string>
+    <string name="video">视频</string>
     <string name="tv_series">电视剧</string>
     <string name="information">资讯</string>
     <string name="fun">搞笑</string>

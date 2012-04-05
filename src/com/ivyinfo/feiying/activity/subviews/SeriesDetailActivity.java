@@ -44,7 +44,7 @@ public class SeriesDetailActivity extends BaseVideoDetailActivity {
 
 		messageHandler = new MessageHandler(Looper.myLooper());
 
-		channel = Channels.series.value();
+		channel = Channels.series.channelID();
 		initView();
 
 		String getSeriesUrl = host + getString(R.string.video_info_url) + "/"

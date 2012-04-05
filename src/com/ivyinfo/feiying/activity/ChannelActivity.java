@@ -26,11 +26,11 @@ import com.ivyinfo.feiying.listitemholder.Channel;
 
 public class ChannelActivity extends Activity {
 	private ChannelListAdapter listAdapter;
-	int[] channelIDs = { Channels.movie.value(), Channels.series.value(),
-			Channels.news.value(), Channels.fun.value(),
-			Channels.music.value(), Channels.sports.value(),
-			Channels.fashion.value(), Channels.entertainment.value(),
-			Channels.variety.value() };
+	int[] channelIDs = { Channels.movie.channelID(), Channels.series.channelID(),
+			Channels.news.channelID(), Channels.fun.channelID(),
+			Channels.music.channelID(), Channels.sports.channelID(),
+			Channels.fashion.channelID(), Channels.entertainment.channelID(),
+			Channels.variety.channelID() };
 	int[] channelTitle = { R.string.movie, R.string.tv_series,
 			R.string.information, R.string.fun, R.string.music,
 			R.string.sports, R.string.fashion, R.string.entertainment,
@@ -102,10 +102,10 @@ public class ChannelActivity extends Activity {
 				Bundle bundle = new Bundle();
 				bundle.putString("channeltitle", obj.getString(Channel.TITLE));
 				bundle.putString("path", getString(R.string.video_list));
-				if (channelID == Channels.movie.value()) {
+				if (channelID == Channels.movie.channelID()) {
 					intent.setClass(ChannelActivity.this,
 							MovieListActivity.class);
-				} else if (channelID == Channels.series.value()) {
+				} else if (channelID == Channels.series.channelID()) {
 					intent.setClass(ChannelActivity.this,
 							SeriesListActivity.class);
 				} else {

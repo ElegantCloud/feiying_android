@@ -49,11 +49,11 @@ public class FavorActivity extends Activity {
 
 	private ProgressDialog progressDialog;
 
-	int[] channelIDs = { Channels.movie.value(), Channels.series.value(),
-			Channels.news.value(), Channels.fun.value(),
-			Channels.music.value(), Channels.sports.value(),
-			Channels.fashion.value(), Channels.entertainment.value(),
-			Channels.variety.value() };
+	int[] channelIDs = { Channels.movie.channelID(), Channels.series.channelID(),
+			Channels.news.channelID(), Channels.fun.channelID(),
+			Channels.music.channelID(), Channels.sports.channelID(),
+			Channels.fashion.channelID(), Channels.entertainment.channelID(),
+			Channels.variety.channelID() };
 	int[] channelTitle = { R.string.movie, R.string.tv_series,
 			R.string.information, R.string.fun, R.string.music,
 			R.string.sports, R.string.fashion, R.string.entertainment,
@@ -202,9 +202,9 @@ public class FavorActivity extends Activity {
 						getString(R.string.favor_video_list_url));
 				bundle.putString(VideoConstants.video_tag.name(),
 						VideoTag.favor.name());
-				if (channelID == Channels.movie.value()) {
+				if (channelID == Channels.movie.channelID()) {
 					intent.setClass(FavorActivity.this, MovieListActivity.class);
-				} else if (channelID == Channels.series.value()) {
+				} else if (channelID == Channels.series.channelID()) {
 					intent.setClass(FavorActivity.this,
 							SeriesListActivity.class);
 				} else {

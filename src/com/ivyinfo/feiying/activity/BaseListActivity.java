@@ -24,6 +24,7 @@ public class BaseListActivity extends Activity {
 
 	protected String host;
 	protected String nextPageURL = "";
+	protected boolean hasNextPage;
 	protected int currentListStatus;
 	
 	/** indicate current video state: normal, favored, shared etc.*/
@@ -40,6 +41,7 @@ public class BaseListActivity extends Activity {
 
 		videoTag = VideoTag.normal.name();
 		currentListStatus = ActivityRequests.ON_NORMAL;
+		hasNextPage = true;
 	}
 
 	protected void showLoadingMoreProgressbar() {

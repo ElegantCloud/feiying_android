@@ -86,7 +86,8 @@ public class VideoSearchResultActivity extends BaseListActivity {
 					JSONObject jsonPager = jsonObject.getJSONObject("pager");
 					nextPageURL = jsonPager.getString(VideoConstants.nextPage
 							.name());
-
+					hasNextPage = jsonPager.getBoolean("hasNext");
+					
 					Message message = Message.obtain();
 					message.obj = jsonObject;
 					message.what = MsgCodeDefine.MSG_REFRESH_VIDEO_LIST;
@@ -123,7 +124,7 @@ public class VideoSearchResultActivity extends BaseListActivity {
 				// load more movies
 				showLoadingMoreProgressbar();
 
-				if (!nextPageURL.equals("")) {
+				if (hasNextPage) {
 					loadUrl(host + nextPageURL);
 				} else {
 					showNoMoreItemInfo();
@@ -142,10 +143,10 @@ public class VideoSearchResultActivity extends BaseListActivity {
 		Bundle bundle = new Bundle();
 		bundle.putString(VideoConstants.source_id.name(), sourceId);
 
-		if (channel == Channels.movie.value()) {
+		if (channel == Channels.movie.channelID()) {
 			// movie
 			intent.setClass(VideoSearchResultActivity.this, MovieDetailActivity.class);
-		} else if (channel == Channels.series.value()) {
+		} else if (channel == Channels.series.channelID()) {
 			// tv series
 			intent.setClass(VideoSearchResultActivity.this, SeriesDetailActivity.class);
 		} else {
@@ -169,7 +170,7 @@ public class VideoSearchResultActivity extends BaseListActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				if (nextPageURL.equals("")) {
+				if (!hasNextPage) {
 					showNoMoreItemInfo();
 				} else {
 					hideLoadingMoreProgressbar();

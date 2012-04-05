@@ -353,21 +353,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/episode_list"
                 android:textColor="@color/orange"
-                android:textSize="16dip"
+                android:textSize="18dip"
                 android:textStyle="bold" />
-
-            <!--
-            <com.ivyinfo.feiying.view.FYGridView
-                android:id="@+id/series_episode_table"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:columnWidth="60dp"
-                android:horizontalSpacing="5dp"
-                android:numColumns="auto_fit"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="5dp" >
-            </com.ivyinfo.feiying.view.FYGridView>
-            -->
 
             <com.ivyinfo.feiying.view.EpisodePlayListView
                 android:id="@+id/series_episode_playlist"
@@ -386,14 +373,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/description"
                 android:textColor="@color/orange"
-                android:textSize="16dip"
+                android:textSize="18dip"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/detail_series_description"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dip" />
+                android:layout_marginBottom="20dip"
+                android:textSize="16dip" />
         </LinearLayout>
     </ScrollView>
 

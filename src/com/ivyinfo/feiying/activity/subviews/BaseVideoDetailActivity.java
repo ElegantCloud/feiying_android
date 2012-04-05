@@ -78,7 +78,7 @@ public abstract class BaseVideoDetailActivity extends Activity {
 		sender = intent.getStringExtra(VideoConstants.send.name());
 		shareDate = intent.getStringExtra(VideoConstants.date.name());
 
-		channel = Channels.video.value();
+		channel = Channels.video.channelID();
 		host = getString(R.string.host);
 		authUrl = host + getString(R.string.authenticate_url);
 	}

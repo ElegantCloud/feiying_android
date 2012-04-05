@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ivyinfo.feiying.android.R;
+import com.ivyinfo.feiying.constant.Channels;
 import com.ivyinfo.feiying.constant.MsgCodeDefine;
 import com.ivyinfo.feiying.constant.VideoConstants;
 import com.ivyinfo.feiying.http.HttpUtils;
@@ -163,21 +164,24 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 							.getString(VideoConstants.share_count.name());
 					String favcount = videoInfoJSONObj
 							.getString(VideoConstants.fav_count.name());
-
+					int channelID = videoInfoJSONObj.getInt(VideoConstants.channel.name());
+					
 					TextView titleTV = (TextView) findViewById(R.id.detail_video_title);
 					TextView timeTV = (TextView) findViewById(R.id.detail_video_time);
 					TextView sizeTV = (TextView) findViewById(R.id.detail_video_size);
 					TextView playcountTV = (TextView) findViewById(R.id.detail_video_playcount);
 					TextView sharecountTV = (TextView) findViewById(R.id.detail_video_sharecount);
 					TextView favcountTV = (TextView) findViewById(R.id.detail_video_favcount);
-
+					TextView channelTV = (TextView)findViewById(R.id.detail_video_channel);
+					
 					titleTV.setText(title);
 					timeTV.setText(time);
 					sizeTV.setText(size);
 					playcountTV.setText(playcount);
 					sharecountTV.setText(sharecount);
 					favcountTV.setText(favcount);
-
+					channelTV.setText(Channels.getResIDByChannelID(channelID));
+					
 					ImageButton imgBt = (ImageButton) findViewById(R.id.video_thumb_img);
 					String imgUrl = videoInfoJSONObj
 							.getString(VideoConstants.image_url.name());

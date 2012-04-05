@@ -23,7 +23,7 @@ public class HomeActivity extends BaseVideoListActivity {
 		listView.setAdapter(listAdapter);
 		listView.setOnItemClickListener(videoListCL);
 
-		url = host + getString(R.string.video_list) + "/" + Channels.video.value();
+		url = host + getString(R.string.video_list) + "/" + Channels.video.channelID();
 		loadUrl(url);
 
 	}

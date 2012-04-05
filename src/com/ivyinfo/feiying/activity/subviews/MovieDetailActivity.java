@@ -37,7 +37,7 @@ public class MovieDetailActivity extends BaseVideoDetailActivity {
 
 		messageHandler = new MessageHandler(Looper.myLooper());
 
-		channel = Channels.movie.value();
+		channel = Channels.movie.channelID();
 		initView();
 
 		String getMovieUrl = host + getString(R.string.video_info_url) + "/"

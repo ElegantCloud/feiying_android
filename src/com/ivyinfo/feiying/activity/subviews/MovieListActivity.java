@@ -62,7 +62,7 @@ public class MovieListActivity extends BaseListActivity {
 
 		currentListStatus = ActivityRequests.ON_NORMAL;
 
-		url = host + movieListPath + "/" + Channels.movie.value();
+		url = host + movieListPath + "/" + Channels.movie.channelID();
 		loadUrl(url);
 	}
 
@@ -108,7 +108,7 @@ public class MovieListActivity extends BaseListActivity {
 				// load more movies
 				showLoadingMoreProgressbar();
 
-				if (!nextPageURL.equals("")) {
+				if (hasNextPage) {
 					loadUrl(host + nextPageURL);
 				} else {
 					showNoMoreItemInfo();
@@ -131,7 +131,8 @@ public class MovieListActivity extends BaseListActivity {
 					JSONObject jsonPager = jsonObject.getJSONObject("pager");
 					nextPageURL = jsonPager.getString(VideoConstants.nextPage
 							.name());
-
+					hasNextPage = jsonPager.getBoolean("hasNext");
+					
 					Message message = Message.obtain();
 					message.obj = jsonObject;
 					message.what = MsgCodeDefine.MSG_REFRESH_VIDEO_LIST;
@@ -165,7 +166,7 @@ public class MovieListActivity extends BaseListActivity {
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				if (nextPageURL.equals("")) {
+				if (!hasNextPage) {
 					showNoMoreItemInfo();
 				} else {
 					hideLoadingMoreProgressbar();

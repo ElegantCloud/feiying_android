@@ -137,10 +137,11 @@ public class ShareActivity extends BaseListActivity {
 					JSONObject jsonPager = jsonObject.getJSONObject("pager");
 					nextPageURL = jsonPager.getString(VideoConstants.nextPage
 							.name());
-
+					hasNextPage = jsonPager.getBoolean("hasNext");
+					
 					Message message = Message.obtain();
 					message.obj = jsonObject;
-					message.what = MsgCodeDefine.MSG_REFRESH_SEND_PEOPLE_LIST;
+					message.what = MsgCodeDefine.MSG_REFRESH_SEND_LIST;
 					messageHandler.sendMessage(message);
 
 				} catch (JSONException e) {
@@ -176,10 +177,11 @@ public class ShareActivity extends BaseListActivity {
 					JSONObject jsonPager = jsonObject.getJSONObject("pager");
 					nextPageURL = jsonPager.getString(VideoConstants.nextPage
 							.name());
-
+					hasNextPage = jsonPager.getBoolean("hasNext");
+					
 					Message message = Message.obtain();
 					message.obj = jsonObject;
-					message.what = MsgCodeDefine.MSG_REFRESH_RECEIVE_PEOPLE_LIST;
+					message.what = MsgCodeDefine.MSG_REFRESH_RECEIVE_LIST;
 					messageHandler.sendMessage(message);
 
 				} catch (JSONException e) {
@@ -221,7 +223,7 @@ public class ShareActivity extends BaseListActivity {
 					// load more videos
 					showLoadingMoreProgressbar();
 
-					if (!nextPageURL.equals("")) {
+					if (hasNextPage) {
 						loadUrl(host + nextPageURL, receiveListResLis);
 					} else {
 						showNoMoreItemInfo();
@@ -243,7 +245,7 @@ public class ShareActivity extends BaseListActivity {
 					// load more videos
 					showLoadingMoreProgressbar();
 
-					if (!nextPageURL.equals("")) {
+					if (hasNextPage) {
 						loadUrl(host + nextPageURL, sendListResLis);
 					} else {
 						showNoMoreItemInfo();
@@ -285,10 +287,10 @@ public class ShareActivity extends BaseListActivity {
 					.formatDateTime(ShareActivity.this, dateTime,
 							DateUtils.FORMAT_NUMERIC_DATE));
 
-			if (channel == Channels.movie.value()) {
+			if (channel == Channels.movie.channelID()) {
 				// movie
 				intent.setClass(ShareActivity.this, MovieDetailActivity.class);
-			} else if (channel == Channels.series.value()) {
+			} else if (channel == Channels.series.channelID()) {
 				// tv series
 				intent.setClass(ShareActivity.this, SeriesDetailActivity.class);
 			} else {
@@ -330,31 +332,32 @@ public class ShareActivity extends BaseListActivity {
 		@Override
 		public void handleMessage(Message message) {
 			switch (message.what) {
-			case MsgCodeDefine.MSG_REFRESH_RECEIVE_PEOPLE_LIST:
+			case MsgCodeDefine.MSG_REFRESH_RECEIVE_LIST:
 				try {
 					refreshReceiveList((JSONObject) message.obj);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				if (nextPageURL.equals("")) {
+				if (!hasNextPage) {
 					showNoMoreItemInfo();
 				} else {
 					hideLoadingMoreProgressbar();
 				}
 				break;
-			case MsgCodeDefine.MSG_REFRESH_SEND_PEOPLE_LIST:
+			case MsgCodeDefine.MSG_REFRESH_SEND_LIST:
 				try {
 					refreshSendList((JSONObject) message.obj);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-				if (nextPageURL.equals("")) {
+				if (!hasNextPage) {
 					showNoMoreItemInfo();
 				} else {
 					hideLoadingMoreProgressbar();
 				}
 				break;
 			case MsgCodeDefine.MSG_ACCOUNT_NEED_RELOGIN:
+				showNoMoreItemInfo();
 				new AlertDialog.Builder(ShareActivity.this)
 						.setTitle(R.string.alert_title)
 						.setMessage(R.string.account_need_relogin)
