@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/main_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -10,7 +11,6 @@
         android:layout_width="fill_parent"
         android:layout_height="50dip"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dip"
         android:background="@drawable/title_bar_bg"
         android:paddingTop="10dip" >
 
@@ -32,8 +32,8 @@
             android:layout_centerVertical="true"
             android:layout_margin="5dip"
             android:background="@drawable/bt_short_bg"
-            android:text="@string/share"
             android:onClick="onSendShare"
+            android:text="@string/share"
             android:textColor="@drawable/bt_fg" />
     </RelativeLayout>
 
@@ -78,8 +78,8 @@
         android:layout_marginBottom="5dip"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
-        android:textSize="18dip"
-        android:text="Video introduction" />
+        android:text="Video introduction"
+        android:textSize="18dip" />
 
     <EditText
         android:id="@+id/share_editor_user_message"

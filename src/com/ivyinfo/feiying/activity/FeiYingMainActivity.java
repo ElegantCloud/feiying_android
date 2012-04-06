@@ -1,5 +1,7 @@
 package com.ivyinfo.feiying.activity;
 
+import java.util.zip.Inflater;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,7 +16,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.ivyinfo.feiying.android.R;
 import com.ivyinfo.feiying.constant.CommonConstants;
@@ -138,10 +144,16 @@ public class FeiYingMainActivity extends TabActivity {
 		Resources res = getResources(); // Resource object to get Drawables
 
 		Intent intent = new Intent().setClass(this, activity);
-		TabHost.TabSpec spec = tabHost
-				.newTabSpec("more")
-				.setIndicator(getResources().getString(title),
-						res.getDrawable(ic_tab_img)).setContent(intent);
+//		TabHost.TabSpec spec = tabHost
+//				.newTabSpec("more")
+//				.setIndicator(getResources().getString(title),
+//						res.getDrawable(ic_tab_img)).setContent(intent);
+		View tabIndi = LayoutInflater.from(this).inflate(R.layout.tab_indicator_view, null);
+		ImageView tabIcon = (ImageView) tabIndi.findViewById(R.id.tab_icon);
+		TextView tabText = (TextView)tabIndi.findViewById(R.id.tab_text);
+		tabText.setText(title);
+		tabIcon.setImageResource(ic_tab_img);
+		TabHost.TabSpec spec = tabHost.newTabSpec("more").setIndicator(tabIndi).setContent(intent);
 		tabHost.addTab(spec);
 	}
 

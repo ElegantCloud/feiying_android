@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/main_bg" >
 
     <RelativeLayout
         android:id="@+id/detail_top_bar"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dip"
         android:background="@drawable/title_bar_bg"
         android:paddingTop="10dip" >
 
@@ -90,10 +90,10 @@
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="2dip"
+                    android:layout_height="1dip"
                     android:layout_marginBottom="4dip"
                     android:layout_marginTop="4dip"
-                    android:background="#88ffffff" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <RelativeLayout
@@ -279,10 +279,10 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="2dip"
+                android:layout_height="1dip"
                 android:layout_marginBottom="4dip"
                 android:layout_marginTop="4dip"
-                android:background="#88ffffff" />
+                android:background="@color/black" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -353,14 +353,16 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="2dip"
+                android:layout_height="1dip"
                 android:layout_marginBottom="4dip"
                 android:layout_marginTop="4dip"
-                android:background="#88ffffff" />
+                android:background="@color/black" />
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
                 android:text="@string/description"
                 android:textColor="@color/orange"
                 android:textSize="18dip"
@@ -371,6 +373,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip"
                 android:textSize="16dip" />
         </LinearLayout>
     </ScrollView>

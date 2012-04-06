@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -9,7 +10,6 @@
         android:layout_width="fill_parent"
         android:layout_height="50dip"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dip"
         android:background="@drawable/title_bar_bg"
         android:paddingTop="10dip" >
 
@@ -90,10 +90,10 @@
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="2dip"
+                    android:layout_height="1dip"
                     android:layout_marginBottom="4dip"
                     android:layout_marginTop="4dip"
-                    android:background="#88ffffff" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <RelativeLayout
@@ -239,10 +239,10 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_height="2dip"
+                android:layout_height="1dip"
                 android:layout_marginBottom="4dip"
                 android:layout_marginTop="4dip"
-                android:background="#88ffffff" />
+                android:background="@color/black" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
