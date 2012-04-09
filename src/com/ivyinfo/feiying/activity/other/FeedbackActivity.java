@@ -33,7 +33,7 @@ public class FeedbackActivity extends Activity {
 	private MessageHandler messageHandler;
 	private FeedbackTypes type = FeedbackTypes.problem;
 	private ProgressDialog progressDialog;
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.feedback_view);
@@ -110,9 +110,7 @@ public class FeedbackActivity extends Activity {
 	};
 
 	public void onSubmit(View v) {
-		progressDialog = ProgressDialog.show(this, null,
-				getString(R.string.submitting_feedback), true);
-		
+
 		String comment = commentET.getText().toString().trim();
 		String user = userET.getText().toString().trim();
 		if (comment.equals("")) {
@@ -120,6 +118,9 @@ public class FeedbackActivity extends Activity {
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
+
+		progressDialog = ProgressDialog.show(this, null,
+				getString(R.string.submitting_feedback), true);
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("user", user);
