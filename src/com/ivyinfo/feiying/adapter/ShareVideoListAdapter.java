@@ -20,6 +20,7 @@ import com.ivyinfo.feiying.constant.ShareCategory;
 import com.ivyinfo.feiying.constant.VideoConstants;
 import com.ivyinfo.feiying.utity.AsyncImageLoader;
 import com.ivyinfo.feiying.utity.ImageCallback;
+import com.ivyinfo.user.UserManager;
 
 public class ShareVideoListAdapter extends BaseVideoListAdapter {
 
@@ -63,16 +64,26 @@ public class ShareVideoListAdapter extends BaseVideoListAdapter {
 		if (video != null) {
 			try {
 				String title = video.getString(VideoConstants.title.name());
-				String imgURL = video
-						.getString(VideoConstants.image_url.name());
-				long dateTime = video.getLong(VideoConstants.share_time.name());
-				dateTime *= 1000;
-				Log.d("feiying", "share time: " + dateTime);
+				String imgURL = "";
+				if (UserManager.getInstance().getUser().getUserkey().equals("")) {
+					imgURL = video.getString(VideoConstants.image_url.name());
+				} else {
+					String sourceID = video.getString(VideoConstants.source_id
+							.name());
+					imgURL = context.getString(R.string.host_2) + "/" + sourceID
+							+ ".jpg";
+				}
+				
 				if (imgURL != "") {
 					Bitmap img = AsyncImageLoader.getInstance().loadImage(
 							imgURL, new ImageCallback(viewHolder.imgBt));
 					viewHolder.imgBt.setImageBitmap(img);
 				}
+				
+				long dateTime = video.getLong(VideoConstants.share_time.name());
+				dateTime *= 1000;
+				Log.d("feiying", "share time: " + dateTime);
+				
 
 				switch (shareCategory) {
 				case share_receive:

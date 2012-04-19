@@ -273,8 +273,10 @@ public class SeriesDetailActivity extends BaseVideoDetailActivity {
 				// internal video url
 				try {
 					if (clickedEpisode != null) {
-						String videoUrl = clickedEpisode
-								.getString(VideoConstants.video_url.name());
+//						String videoUrl = clickedEpisode
+//								.getString(VideoConstants.video_url.name());
+						int index = clickedEpisode.getInt("episode_index");
+						String videoUrl = getString(R.string.host_2) + "/" + sourceId + "_" + index + ".mp4";
 						play(videoUrl);
 					}
 				} catch (JSONException e) {

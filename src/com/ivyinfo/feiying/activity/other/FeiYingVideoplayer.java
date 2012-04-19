@@ -123,18 +123,20 @@ public class FeiYingVideoplayer extends Activity {
 		String videoUrl = bundle.getString("videoUrl");
 		mVideoUri = Uri.parse(videoUrl);
 
-		HttpUtils.startHttpHead(videoUrl, new HttpUtils.HeadResponseListener() {
-
-			@Override
-			public void onComplete(int status, HttpEntity entity) {
-				Log.d(TAG, "status: " + status);
-				if (entity != null) {
-					messageHandler.sendEmptyMessage(MSG_PLAY_VIDEO);
-				} else {
-					messageHandler.sendEmptyMessage(MSG_CANNOT_PLAY);
-				}
-			}
-		}, null);
+//		HttpUtils.startHttpHead(videoUrl, new HttpUtils.HeadResponseListener() {
+//
+//			@Override
+//			public void onComplete(int status, HttpEntity entity) {
+//				Log.d(TAG, "status: " + status);
+//				if (entity != null) {
+//					Log.d(TAG, "entity is not null, streaming: " + entity.isStreaming());
+//					messageHandler.sendEmptyMessage(MSG_PLAY_VIDEO);
+//				} else {
+//					Log.d(TAG, "entity is null");
+//					messageHandler.sendEmptyMessage(MSG_CANNOT_PLAY);
+//				}
+//			}
+//		}, null);
 
 		Log.d(TAG, "video uri = " + mVideoUri);
 		if (mVideoUri.toString().equals("")) {
@@ -192,13 +194,6 @@ public class FeiYingVideoplayer extends Activity {
 			@Override
 			public boolean onError(MediaPlayer mp, int what, int extra) {
 				Log.e(TAG, "video play error.");
-
-//				Toast toast = Toast.makeText(FeiYingVideoplayer.this,
-//						R.string.play_video_error, Toast.LENGTH_LONG);
-//				toast.show();
-//
-//				finish();
-
 				cannotPlay();
 				return false;
 			}
@@ -366,6 +361,8 @@ public class FeiYingVideoplayer extends Activity {
 		// set volume seekBar
 		mVolumeSeekBar = (SeekBar) findViewById(R.id.volumeSeekBar);
 		mVolumeSeekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+		
+		messageHandler.sendEmptyMessage(MSG_PLAY_VIDEO);
 	}
 
 	private void cannotPlay() {

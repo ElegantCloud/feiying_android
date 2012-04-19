@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-      <string name="host">http://fy.walkwork.net/feiying</string> 
-   <!--<string name="host">http://192.168.1.13/feiying</string>-->
+     <string name="host">http://fy1.richitec.com/feiying</string>
+   
+       <string name="host_2">http://fy2.richitec.com/feiying</string>
     <string name="login_url">/mobile/system/login</string>
     <string name="video_list">/mobile/video</string>
     <string name="video_info_url">/mobile/info</string>

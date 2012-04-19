@@ -123,13 +123,14 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 			if (isAuthed) {
 				// authenticated, just play with
 				// internal video url
-				try {
-					String videoUrl = videoInfoJSONObj
-							.getString(VideoConstants.video_url.name());
+//				try {
+//					String videoUrl = videoInfoJSONObj
+//							.getString(VideoConstants.video_url.name());
+					String videoUrl = getString(R.string.host_2) + "/" + sourceId + ".mp4";
 					play(videoUrl);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
+//				} catch (JSONException e) {
+//					e.printStackTrace();
+//				}
 			}
 		}
 	};

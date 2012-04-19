@@ -14,11 +14,14 @@ import com.ivyinfo.feiying.android.R;
 import com.ivyinfo.feiying.constant.VideoConstants;
 import com.ivyinfo.feiying.utity.AsyncImageLoader;
 import com.ivyinfo.feiying.utity.ImageCallback;
+import com.ivyinfo.user.UserManager;
 
 public class VideoSearchResultListAdapter extends BaseVideoListAdapter {
+	private Context context;
 
 	public VideoSearchResultListAdapter(Context context) {
 		super(context);
+		this.context = context;
 	}
 
 	@Override
@@ -43,8 +46,16 @@ public class VideoSearchResultListAdapter extends BaseVideoListAdapter {
 				String title = video.getString(VideoConstants.title.name());
 				viewHolder.titleTV.setText(title);
 
-				String imgURL = video
-						.getString(VideoConstants.image_url.name());
+				String imgURL = "";
+				if (UserManager.getInstance().getUser().getUserkey().equals("")) {
+					imgURL = video.getString(VideoConstants.image_url.name());
+				} else {
+					String sourceID = video.getString(VideoConstants.source_id
+							.name());
+					imgURL = context.getString(R.string.host_2) + "/"
+							+ sourceID + ".jpg";
+				}
+
 				if (imgURL != "") {
 					Bitmap img = AsyncImageLoader.getInstance().loadImage(
 							imgURL, new ImageCallback(viewHolder.imgBt));

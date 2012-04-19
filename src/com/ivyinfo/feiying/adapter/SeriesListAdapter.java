@@ -15,6 +15,7 @@ import com.ivyinfo.feiying.constant.VideoConstants;
 import com.ivyinfo.feiying.listitemholder.ViewSeries;
 import com.ivyinfo.feiying.utity.AsyncImageLoader;
 import com.ivyinfo.feiying.utity.ImageCallback;
+import com.ivyinfo.user.UserManager;
 
 public class SeriesListAdapter extends BaseVideoListAdapter {
 
@@ -28,44 +29,53 @@ public class SeriesListAdapter extends BaseVideoListAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewSeries series = new ViewSeries();
-//		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.serieslist, null);
+		// if (convertView == null) {
+		convertView = mInflater.inflate(R.layout.serieslist, null);
 
-			series.img_btn = (ImageButton) convertView
-					.findViewById(R.id.series_btn_img);
-			series.title = (TextView) convertView
-					.findViewById(R.id.series_title);
-			series.episode = (TextView) convertView
-					.findViewById(R.id.series_episode);
-			series.actor = (TextView) convertView
-					.findViewById(R.id.series_actor);
-			series.releaseDate = (TextView) convertView
-					.findViewById(R.id.series_release_date);
-//			convertView.setTag(series);
-//		} else {
-//			series = (ViewSeries) convertView.getTag();
-//		}
+		series.img_btn = (ImageButton) convertView
+				.findViewById(R.id.series_btn_img);
+		series.title = (TextView) convertView.findViewById(R.id.series_title);
+		series.episode = (TextView) convertView
+				.findViewById(R.id.series_episode);
+		series.actor = (TextView) convertView.findViewById(R.id.series_actor);
+		series.releaseDate = (TextView) convertView
+				.findViewById(R.id.series_release_date);
+		// convertView.setTag(series);
+		// } else {
+		// series = (ViewSeries) convertView.getTag();
+		// }
 
 		series.img_btn.setImageBitmap(null);
 		final JSONObject jsonSeries = (JSONObject) getItem(position);
 		try {
-			String imgURL = jsonSeries.getString(VideoConstants.image_url
-					.name());
+			String imgURL = "";
+
+			if (UserManager.getInstance().getUser().getUserkey().equals("")) {
+				imgURL = jsonSeries.getString(VideoConstants.image_url.name());
+			} else {
+				String sourceID = jsonSeries.getString(VideoConstants.source_id
+						.name());
+				imgURL = context.getString(R.string.host_2) + "/" + sourceID
+						+ ".jpg";
+			}
 			if (imgURL != "") {
 				Bitmap img = AsyncImageLoader.getInstance().loadImage(imgURL,
 						new ImageCallback(series.img_btn));
 				series.img_btn.setImageBitmap(img);
 			}
 
-			series.title.setText(jsonSeries.getString(VideoConstants.title.name()));
-			String count = jsonSeries
-			.getString(VideoConstants.episode_count.name());
-			String isHotPlaying = jsonSeries.getString(VideoConstants.episode_all.name());
+			series.title.setText(jsonSeries.getString(VideoConstants.title
+					.name()));
+			String count = jsonSeries.getString(VideoConstants.episode_count
+					.name());
+			String isHotPlaying = jsonSeries
+					.getString(VideoConstants.episode_all.name());
 			if (isHotPlaying.equals("0")) {
 				count = context.getString(R.string.publishing);
 			}
 			series.episode.setText(count);
-			series.actor.setText(jsonSeries.getString(VideoConstants.actor.name()));
+			series.actor.setText(jsonSeries.getString(VideoConstants.actor
+					.name()));
 			series.releaseDate.setText(jsonSeries
 					.getString(VideoConstants.release_date.name()));
 		} catch (JSONException e) {
