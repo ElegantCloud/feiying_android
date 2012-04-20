@@ -123,14 +123,15 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 			if (isAuthed) {
 				// authenticated, just play with
 				// internal video url
-//				try {
-//					String videoUrl = videoInfoJSONObj
-//							.getString(VideoConstants.video_url.name());
-					String videoUrl = getString(R.string.host_2) + "/" + sourceId + ".mp4";
-					play(videoUrl);
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
+				// try {
+				// String videoUrl = videoInfoJSONObj
+				// .getString(VideoConstants.video_url.name());
+				String videoUrl = getString(R.string.host_2) + "/" + sourceId
+						+ ".mp4";
+				play(videoUrl);
+				// } catch (JSONException e) {
+				// e.printStackTrace();
+				// }
 			}
 		}
 	};
@@ -165,16 +166,17 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 							.getString(VideoConstants.share_count.name());
 					String favcount = videoInfoJSONObj
 							.getString(VideoConstants.fav_count.name());
-					int channelID = videoInfoJSONObj.getInt(VideoConstants.channel.name());
-					
+					int channelID = videoInfoJSONObj
+							.getInt(VideoConstants.channel.name());
+
 					TextView titleTV = (TextView) findViewById(R.id.detail_video_title);
 					TextView timeTV = (TextView) findViewById(R.id.detail_video_time);
 					TextView sizeTV = (TextView) findViewById(R.id.detail_video_size);
 					TextView playcountTV = (TextView) findViewById(R.id.detail_video_playcount);
 					TextView sharecountTV = (TextView) findViewById(R.id.detail_video_sharecount);
 					TextView favcountTV = (TextView) findViewById(R.id.detail_video_favcount);
-					TextView channelTV = (TextView)findViewById(R.id.detail_video_channel);
-					
+					TextView channelTV = (TextView) findViewById(R.id.detail_video_channel);
+
 					titleTV.setText(title);
 					timeTV.setText(time);
 					sizeTV.setText(size);
@@ -182,10 +184,19 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 					sharecountTV.setText(sharecount);
 					favcountTV.setText(favcount);
 					channelTV.setText(Channels.getResIDByChannelID(channelID));
-					
+
 					ImageButton imgBt = (ImageButton) findViewById(R.id.video_thumb_img);
-					String imgUrl = videoInfoJSONObj
-							.getString(VideoConstants.image_url.name());
+				
+					String imgUrl = "";
+					if (UserManager.getInstance().getUser().getUserkey()
+							.equals("")) {
+						imgUrl = videoInfoJSONObj
+								.getString(VideoConstants.image_url.name());
+					} else {
+						imgUrl = getString(R.string.host_2) + "/" + sourceId
+								+ ".jpg";
+					}
+
 					if (imgUrl != "") {
 						Bitmap img = AsyncImageLoader.getInstance().loadImage(
 								imgUrl, new ImageCallback(imgBt));

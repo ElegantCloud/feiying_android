@@ -148,8 +148,17 @@ public class SeriesDetailActivity extends BaseVideoDetailActivity {
 					releaseDateTV.setText(releaseDate);
 
 					ImageButton imgBt = (ImageButton) findViewById(R.id.series_thumb_img);
-					String imgURL = videoInfoJSONObj
-							.getString(VideoConstants.image_url.name());
+
+					String imgURL = "";
+					if (UserManager.getInstance().getUser().getUserkey()
+							.equals("")) {
+						imgURL = videoInfoJSONObj
+								.getString(VideoConstants.image_url.name());
+					} else {
+						imgURL = getString(R.string.host_2) + "/" + sourceId
+								+ ".jpg";
+					}
+					
 					if (imgURL != "") {
 						Bitmap img = AsyncImageLoader.getInstance().loadImage(
 								imgURL, new ImageCallback(imgBt));
