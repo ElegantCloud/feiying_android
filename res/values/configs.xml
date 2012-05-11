@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version">1.4</string>
+    <string name="version">1.4.1</string>
     
 	<string name="business_number">1065583398</string>
 	<string name="business_open_content">DZFY</string>

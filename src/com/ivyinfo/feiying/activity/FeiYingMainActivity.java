@@ -24,7 +24,6 @@ import com.ivyinfo.feiying.constant.CommonConstants;
 import com.ivyinfo.feiying.constant.MsgCodeDefine;
 import com.ivyinfo.feiying.http.HttpUtils;
 import com.ivyinfo.feiying.http.HttpUtils.ResponseListener;
-import com.ivyinfo.feiying.service.FYContactSyncService;
 import com.ivyinfo.feiying.utity.VersionManager;
 
 public class FeiYingMainActivity extends TabActivity {
@@ -54,9 +53,6 @@ public class FeiYingMainActivity extends TabActivity {
 				R.drawable.ic_tab_more);
 
 		tabHost.setCurrentTab(2);
-
-		Intent intent = new Intent(this, FYContactSyncService.class);
-		startService(intent);
 
 		// IntentFilter networkStateChangedFilter = new IntentFilter();
 		// networkStateChangedFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);

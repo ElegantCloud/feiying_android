@@ -10,6 +10,7 @@ import android.util.Log;
 import com.ivyinfo.feiying.activity.system.RegisterAndLoginActivity;
 import com.ivyinfo.feiying.android.R;
 import com.ivyinfo.feiying.constant.CommonConstants;
+import com.ivyinfo.feiying.service.FYContactSyncService;
 import com.ivyinfo.user.User;
 import com.ivyinfo.user.UserBean;
 import com.ivyinfo.user.UserManager;
@@ -56,6 +57,9 @@ public class SplashActivity extends Activity {
 		// Log.d("feiying", "SDK: " + Build.VERSION.SDK);
 		// Log.d("feiying", "SDK_INT: " + Build.VERSION.SDK_INT);
 
+		Intent intent = new Intent(this, FYContactSyncService.class);
+		startService(intent);
+		
 		new Thread(new Runnable() {
 
 			@Override
