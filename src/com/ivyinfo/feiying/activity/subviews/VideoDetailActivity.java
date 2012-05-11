@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ivyinfo.feiying.android.R;
+import com.ivyinfo.feiying.constant.BusinessStatus;
 import com.ivyinfo.feiying.constant.Channels;
 import com.ivyinfo.feiying.constant.MsgCodeDefine;
 import com.ivyinfo.feiying.constant.VideoConstants;
@@ -98,14 +99,7 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									try {
-										String videoUrl = videoInfoJSONObj
-												.getString(VideoConstants.video_url
-														.name());
-										play(videoUrl);
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
+									playOuterVideo();
 								}
 							}).show();
 		} else {
@@ -116,22 +110,81 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 
 	}
 
+	private void playOuterVideo() {
+		try {
+			String videoUrl = videoInfoJSONObj
+					.getString(VideoConstants.video_url.name());
+			play(videoUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private OnAuthReturnListener playAuthLis = new OnAuthReturnListener() {
 
 		@Override
-		public void onAuthReturned(boolean isAuthed) {
+		public void onAuthReturned(boolean isAuthed, JSONObject jobj) {
 			if (isAuthed) {
-				// authenticated, just play with
-				// internal video url
-				// try {
-				// String videoUrl = videoInfoJSONObj
-				// .getString(VideoConstants.video_url.name());
-				String videoUrl = getString(R.string.host_2) + "/" + sourceId
-						+ ".mp4";
-				play(videoUrl);
-				// } catch (JSONException e) {
-				// e.printStackTrace();
-				// }
+				String status = "opened";
+				if (jobj != null) {
+					try {
+						status = jobj.getString("status");
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				if (status.equals(BusinessStatus.opened.name())) {
+					// business opened
+					// authenticated, just play with
+					// internal video url
+					String videoUrl = getString(R.string.host_2) + "/"
+							+ sourceId + ".mp4";
+					play(videoUrl);
+				} else if (status.equals(BusinessStatus.processing.name())) {
+					// business processing
+					new AlertDialog.Builder(VideoDetailActivity.this)
+							.setTitle(R.string.alert_title)
+							.setMessage(
+									R.string.processing_user_play_video_alert_info)
+
+							.setPositiveButton(R.string.still_play,
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											playOuterVideo();
+										}
+									}).setNegativeButton(R.string.cancel, null)
+							.show();
+				} else {
+					// business unopened
+					new AlertDialog.Builder(VideoDetailActivity.this)
+							.setTitle(R.string.alert_title)
+							.setMessage(
+									R.string.unopen_user_play_video_alert_info)
+							.setPositiveButton(R.string.account_setting,
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											login();
+										}
+									})
+							.setNegativeButton(R.string.still_play,
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											playOuterVideo();
+										}
+									}).show();
+				}
 			}
 		}
 	};
@@ -186,7 +239,7 @@ public class VideoDetailActivity extends BaseVideoDetailActivity {
 					channelTV.setText(Channels.getResIDByChannelID(channelID));
 
 					ImageButton imgBt = (ImageButton) findViewById(R.id.video_thumb_img);
-				
+
 					String imgUrl = "";
 					if (UserManager.getInstance().getUser().getUserkey()
 							.equals("")) {

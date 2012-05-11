@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ivyinfo.feiying.android.R;
+import com.ivyinfo.feiying.constant.BusinessStatus;
 import com.ivyinfo.feiying.constant.Channels;
 import com.ivyinfo.feiying.constant.MsgCodeDefine;
 import com.ivyinfo.feiying.constant.VideoConstants;
@@ -49,7 +50,7 @@ public class MovieDetailActivity extends BaseVideoDetailActivity {
 		HttpUtils.startHttpPostRequest(getMovieUrl, null, movieResLis, null);
 
 		fillShareFromToField();
-		
+
 	}
 
 	private ResponseListener movieResLis = new ResponseListener() {
@@ -140,7 +141,7 @@ public class MovieDetailActivity extends BaseVideoDetailActivity {
 					releaseDateTV.setText(releaseDate);
 
 					ImageButton imgBt = (ImageButton) findViewById(R.id.movie_thumb_img);
-					
+
 					String imgURL = "";
 					if (UserManager.getInstance().getUser().getUserkey()
 							.equals("")) {
@@ -150,7 +151,7 @@ public class MovieDetailActivity extends BaseVideoDetailActivity {
 						imgURL = getString(R.string.host_2) + "/" + sourceId
 								+ ".jpg";
 					}
-					
+
 					if (imgURL != "") {
 						Bitmap img = AsyncImageLoader.getInstance().loadImage(
 								imgURL, new ImageCallback(imgBt));
@@ -194,14 +195,7 @@ public class MovieDetailActivity extends BaseVideoDetailActivity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int which) {
-									try {
-										String videoUrl = videoInfoJSONObj
-												.getString(VideoConstants.video_url
-														.name());
-										play(videoUrl);
-									} catch (JSONException e) {
-										e.printStackTrace();
-									}
+									playOuterVideo();
 								}
 							}).show();
 		} else {
@@ -212,21 +206,81 @@ public class MovieDetailActivity extends BaseVideoDetailActivity {
 
 	}
 
+	private void playOuterVideo() {
+		try {
+			String videoUrl = videoInfoJSONObj
+					.getString(VideoConstants.video_url
+							.name());
+			play(videoUrl);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private OnAuthReturnListener playAuthLis = new OnAuthReturnListener() {
-		
+
 		@Override
-		public void onAuthReturned(boolean isAuthed) {
+		public void onAuthReturned(boolean isAuthed, JSONObject jobj) {
 			if (isAuthed) {
-				// authenticated, just play with
-				// internal video url
-//				try {
-//					String videoUrl = videoInfoJSONObj
-//							.getString(VideoConstants.video_url.name());
-					String videoUrl = getString(R.string.host_2) + "/" + sourceId + ".mp4";
+				String status = "opened";
+				if (jobj != null) {
+					try {
+						status = jobj.getString("status");
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				if (status.equals(BusinessStatus.opened.name())) {
+					// authenticated, just play with
+					// internal video url
+					String videoUrl = getString(R.string.host_2) + "/"
+							+ sourceId + ".mp4";
 					play(videoUrl);
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
+				} else if (status.equals(BusinessStatus.processing.name())) {
+					// business processing
+					new AlertDialog.Builder(MovieDetailActivity.this)
+							.setTitle(R.string.alert_title)
+							.setMessage(
+									R.string.processing_user_play_video_alert_info)
+
+							.setPositiveButton(R.string.still_play,
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											playOuterVideo();
+										}
+									}).setNegativeButton(R.string.cancel, null)
+							.show();
+				} else {
+					// business unopened
+					new AlertDialog.Builder(MovieDetailActivity.this)
+							.setTitle(R.string.alert_title)
+							.setMessage(
+									R.string.unopen_user_play_video_alert_info)
+							.setPositiveButton(R.string.account_setting,
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											login();
+										}
+									})
+							.setNegativeButton(R.string.still_play,
+									new DialogInterface.OnClickListener() {
+
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											playOuterVideo();
+										}
+									}).show();
+				}
 			}
 		}
 	};

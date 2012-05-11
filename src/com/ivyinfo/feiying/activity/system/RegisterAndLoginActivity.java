@@ -97,7 +97,7 @@ public class RegisterAndLoginActivity extends Activity {
 		String status = userInfoSettings.getString(User.status, "unopened");
 		if (accState.equals(AccountState.login.name())) {
 			// login automatically
-			if (!userName.equals("") && !userkey.equals("") && status.equals(BusinessStatus.opened.name())) {
+			if (!userName.equals("") && !userkey.equals("")) {
 				UserBean user = UserManager.getInstance().setUserInfo(userName,
 						userkey);
 				user.setStatus(status);
@@ -133,6 +133,12 @@ public class RegisterAndLoginActivity extends Activity {
 		userInfoSettings.edit().putString(User.username, user.getName())
 				.putString(User.userkey, user.getUserkey())
 				.putString(User.status, user.getStatus()).commit();
+	}
+	
+	private void setUserAccount(String name, String userkey) {
+		UserBean user = UserManager.getInstance().getUser();
+		user.setName(name);
+		user.setUserkey(userkey);
 	}
 
 	public void onExit(View v) {
@@ -353,15 +359,12 @@ public class RegisterAndLoginActivity extends Activity {
 				JSONObject info = obj.getJSONObject("info");
 				String userkey = info.getString(User.userkey);
 				String status = info.getString(User.status);
+				
+				setUserAccount(phoneNumber, userkey);
+				saveUserAccount();
 
 				if (status.equals(BusinessStatus.opened.name())) {
-					UserBean user = new UserBean();
-					user.setName(phoneNumber);
-					user.setUserkey(userkey);
-					user.setStatus(status);
-					UserManager.getInstance().setUser(user);
 					// jump to main
-					saveUserAccount();
 					jumpToFeiyingMain();
 					return;
 				}
@@ -384,33 +387,19 @@ public class RegisterAndLoginActivity extends Activity {
 										}
 
 									})
-							.setNegativeButton(R.string.exit,
+							.setNegativeButton(R.string.not_open_now,
 									new DialogInterface.OnClickListener() {
 
 										@Override
 										public void onClick(
 												DialogInterface dialog,
 												int which) {
-											onExit(null);
+											jumpToFeiyingMain();
 										}
 
 									}).show();
 				} else if (status.equals(BusinessStatus.processing.name())) {
-					// show business being processing dialog
-					new AlertDialog.Builder(RegisterAndLoginActivity.this)
-							.setTitle(R.string.alert_title)
-							.setMessage(R.string.business_processing)
-							.setNeutralButton(R.string.exit,
-									new DialogInterface.OnClickListener() {
-
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											onExit(null);
-										}
-
-									}).show();
+					jumpToFeiyingMain();
 				}
 
 			} else if (result.equals("2")) {
@@ -463,16 +452,17 @@ public class RegisterAndLoginActivity extends Activity {
 					break;
 
 				}
+				
 				new AlertDialog.Builder(RegisterAndLoginActivity.this)
 						.setTitle(R.string.alert_title)
 						.setMessage(msg)
-						.setNeutralButton(R.string.exit,
+						.setNeutralButton(R.string.ok,
 								new DialogInterface.OnClickListener() {
 
 									@Override
 									public void onClick(DialogInterface dialog,
 											int which) {
-										onExit(null);
+										jumpToFeiyingMain();
 									}
 
 								}).show();

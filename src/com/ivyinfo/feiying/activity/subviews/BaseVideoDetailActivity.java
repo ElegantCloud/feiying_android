@@ -296,7 +296,7 @@ public abstract class BaseVideoDetailActivity extends Activity {
 	private OnAuthReturnListener shareOnAuthLis = new OnAuthReturnListener() {
 
 		@Override
-		public void onAuthReturned(boolean isAuthed) {
+		public void onAuthReturned(boolean isAuthed, JSONObject jobj) {
 			if (isAuthed) {
 				Intent intent = new Intent(BaseVideoDetailActivity.this,
 						VideoShareEditorActivity.class);
@@ -503,10 +503,10 @@ public abstract class BaseVideoDetailActivity extends Activity {
 				namesTV.setText(R.string.no_receivers);
 				break;
 			case MsgCodeDefine.MSG_AUTHENTICATED:
-				onAuthReturned(true);
+				onAuthReturned(true, (JSONObject) message.obj);
 				break;
 			case MsgCodeDefine.MSG_AUTH_FAILED:
-				onAuthReturned(false);
+				onAuthReturned(false, null);
 				break;
 			case MsgCodeDefine.MSG_ACCOUNT_NEED_RELOGIN:
 				alertRelogin();
@@ -552,7 +552,16 @@ public abstract class BaseVideoDetailActivity extends Activity {
 		public void onComplete(int status, String responseText) {
 			switch (status) {
 			case 200:
-				bvdMsgHandler.sendEmptyMessage(MsgCodeDefine.MSG_AUTHENTICATED);
+				try {
+					JSONObject jsonObject = new JSONObject(responseText);
+					Message msg = Message.obtain();
+					msg.what = MsgCodeDefine.MSG_AUTHENTICATED;
+					msg.obj = jsonObject;
+					bvdMsgHandler.sendMessage(msg);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					bvdMsgHandler.sendEmptyMessage(MsgCodeDefine.MSG_ERROR);
+				}
 				break;
 			case 400:
 				bvdMsgHandler.sendEmptyMessage(MsgCodeDefine.MSG_AUTH_FAILED);
@@ -570,14 +579,14 @@ public abstract class BaseVideoDetailActivity extends Activity {
 	 * @param isAuthed
 	 *            - true : authenticated, false: auth failed
 	 */
-	private void onAuthReturned(boolean isAuthed) {
+	private void onAuthReturned(boolean isAuthed, JSONObject jobj) {
 		if (!isAuthed) {
 			// authentication failed, alert to re-login
 			alertRelogin();
 		}
 
 		if (currentAuthListener != null) {
-			currentAuthListener.onAuthReturned(isAuthed);
+			currentAuthListener.onAuthReturned(isAuthed, jobj);
 		}
 	}
 
@@ -615,6 +624,6 @@ public abstract class BaseVideoDetailActivity extends Activity {
 	 * 
 	 */
 	interface OnAuthReturnListener {
-		public void onAuthReturned(boolean isAuthed);
+		public void onAuthReturned(boolean isAuthed, JSONObject jobj);
 	}
 }

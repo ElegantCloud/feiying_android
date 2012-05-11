@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.ivyinfo.feiying.activity.FeiYingMainActivity;
+import com.ivyinfo.feiying.activity.system.RegisterAndLoginActivity;
 import com.ivyinfo.feiying.android.R;
 import com.ivyinfo.feiying.constant.CommonConstants;
 import com.ivyinfo.user.User;
@@ -66,7 +66,7 @@ public class SplashActivity extends Activity {
 					e.printStackTrace();
 				}
 				Intent intent = new Intent(SplashActivity.this,
-						FeiYingMainActivity.class);
+						RegisterAndLoginActivity.class);
 				startActivity(intent);
 				SplashActivity.this.finish();
 			}

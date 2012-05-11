@@ -144,13 +144,16 @@
     <string name="select_type">选择类型</string>
     <string name="open_business_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可看视频免流量费，不占用原有套餐流量。</string>
     <string name="open_business">立即开通</string>
+    <string name="not_open_now">暂不开通</string>
     <string name="non_login_user_play_video_alert_info">您尚未登录,若继续观看，将占用您的套餐内流量。登录请点击账号设置。</string>
+    <string name="unopen_user_play_video_alert_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可看视频免流量费，不占用原有套餐流量。若继续观看，将占用您的套餐内流量。开通请点击账号设置。</string>
     <string name="still_play">继续观看</string>
+    <string name="processing_user_play_video_alert_info">您的开通申请正在处理中，继续观看将占用流量。</string>
     <string name="business_processing">您的开通申请正在处理中，请稍后重试，或收到系统确认短信后重新登录。</string>
-    <string name="business_open_req_submitted">您的开通申请已提交，待收到系统确认短信后重新登录飞影客户端。</string>
+    <string name="business_open_req_submitted">您的开通申请已提交，系统后台正在处理。</string>
     <string name="submitting_open_request">正在提交开通申请...</string>
-    <string name="submit_failed">申请提交失败，请检查您的网络或手机账户余额，退出后重试！</string>
-    <string name="account_need_relogin">您的账号可能在别处登录或飞影包月服务已经退订，请重新设置账号！</string>
+    <string name="submit_failed">申请提交失败，请检查您的网络或手机账户余额！</string>
+    <string name="account_need_relogin">您的账号上次登录已失效，请重新设置账号！</string>
     
 
 </resources>

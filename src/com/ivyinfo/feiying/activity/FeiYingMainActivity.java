@@ -1,7 +1,5 @@
 package com.ivyinfo.feiying.activity;
 
-import java.util.zip.Inflater;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,7 +7,6 @@ import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,9 +30,7 @@ import com.ivyinfo.feiying.utity.VersionManager;
 public class FeiYingMainActivity extends TabActivity {
 	/** Called when the activity is first created. */
 	private MessageHandler messageHandler;
-//	private String businessStatusGetUrl;
 	
-//	private SharedPreferences userInfoSettings;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,44 +63,7 @@ public class FeiYingMainActivity extends TabActivity {
 
 		checkVersion();
 		
-//		businessStatusGetUrl = getString(R.string.host) + getString(R.string.business_status_get_url);
-//		
-//		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
-//			
-//			@Override
-//			public void onTabChanged(String tabId) {
-//				HttpUtils.startHttpPostRequestWithSignature(businessStatusGetUrl, null, statusRL, null);
-//			}
-//		});
 	}
-	
-//	private ResponseListener statusRL = new ResponseListener() {
-//		
-//		@Override
-//		public void onComplete(int status, String responseText) {
-//			try {
-//				JSONObject obj = new JSONObject(responseText);
-//				String businessStatus = obj.getString(User.status);
-//				if (!businessStatus.equals(BusinessStatus.opened.name())) {
-//					UserBean user = UserManager.getInstance().getUser();
-//					user.setUserkey("");
-//					user.setStatus(businessStatus);
-//					saveUserAccount();
-//				}
-//			} catch (JSONException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//	};
-
-//	private void saveUserAccount() {
-//		UserBean user = UserManager.getInstance().getUser();
-//		userInfoSettings = getSharedPreferences(
-//				CommonConstants.user_info.name(), 0);
-//		userInfoSettings.edit().putString(User.username, user.getName())
-//				.putString(User.userkey, user.getUserkey())
-//				.putString(User.status, user.getStatus()).commit();
-//	}
 	
 	private void checkVersion() {
 		HttpUtils.startHttpPostRequest(getString(R.string.host)
@@ -141,13 +99,7 @@ public class FeiYingMainActivity extends TabActivity {
 
 	public void addTab(TabHost tabHost, String tabStr, int title,
 			Class<?> activity, int ic_tab_img) {
-		Resources res = getResources(); // Resource object to get Drawables
-
 		Intent intent = new Intent().setClass(this, activity);
-//		TabHost.TabSpec spec = tabHost
-//				.newTabSpec("more")
-//				.setIndicator(getResources().getString(title),
-//						res.getDrawable(ic_tab_img)).setContent(intent);
 		View tabIndi = LayoutInflater.from(this).inflate(R.layout.tab_indicator_view, null);
 		ImageView tabIcon = (ImageView) tabIndi.findViewById(R.id.tab_icon);
 		TextView tabText = (TextView)tabIndi.findViewById(R.id.tab_text);
