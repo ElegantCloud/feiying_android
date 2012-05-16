@@ -26,16 +26,16 @@ import com.ivyinfo.feiying.listitemholder.Channel;
 
 public class ChannelActivity extends Activity {
 	private ChannelListAdapter listAdapter;
-	int[] channelIDs = { Channels.movie.channelID(), Channels.series.channelID(),
+	int[] channelIDs = {/* Channels.movie.channelID(), Channels.series.channelID(),*/
 			Channels.news.channelID(), Channels.fun.channelID(),
 			Channels.music.channelID(), Channels.sports.channelID(),
 			Channels.fashion.channelID(), Channels.entertainment.channelID(),
 			Channels.variety.channelID() };
-	int[] channelTitle = { R.string.movie, R.string.tv_series,
+	int[] channelTitle = {/* R.string.movie, R.string.tv_series,*/
 			R.string.information, R.string.fun, R.string.music,
 			R.string.sports, R.string.fashion, R.string.entertainment,
 			R.string.variety };
-	int[] imgs = { R.drawable.dianying, R.drawable.dianshi, R.drawable.zixun,
+	int[] imgs = { /*R.drawable.dianying, R.drawable.dianshi, */ R.drawable.zixun,
 			R.drawable.gaoxiao, R.drawable.music, R.drawable.tiyu,
 			R.drawable.shishang, R.drawable.yule, R.drawable.zongyi };
 
