@@ -363,44 +363,44 @@ public class RegisterAndLoginActivity extends Activity {
 				setUserAccount(phoneNumber, userkey);
 				saveUserAccount();
 
-				if (status.equals(BusinessStatus.opened.name())) {
+//				if (status.equals(BusinessStatus.opened.name())) {
 					// jump to main
 					jumpToFeiyingMain();
 					return;
-				}
+//				}
 
-				// show dialog
-				if (status.equals(BusinessStatus.unopened.name())) {
-					// show open business dialog
-					new AlertDialog.Builder(RegisterAndLoginActivity.this)
-							.setTitle(R.string.alert_title)
-							.setMessage(R.string.open_business_info)
-							.setPositiveButton(R.string.open_business,
-									new DialogInterface.OnClickListener() {
-
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											// send sms to open business
-											openBusiness();
-										}
-
-									})
-							.setNegativeButton(R.string.not_open_now,
-									new DialogInterface.OnClickListener() {
-
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											jumpToFeiyingMain();
-										}
-
-									}).show();
-				} else if (status.equals(BusinessStatus.processing.name())) {
-					jumpToFeiyingMain();
-				}
+//				// show dialog
+//				if (status.equals(BusinessStatus.unopened.name())) {
+//					// show open business dialog
+//					new AlertDialog.Builder(RegisterAndLoginActivity.this)
+//							.setTitle(R.string.alert_title)
+//							.setMessage(R.string.open_business_info)
+//							.setPositiveButton(R.string.open_business,
+//									new DialogInterface.OnClickListener() {
+//
+//										@Override
+//										public void onClick(
+//												DialogInterface dialog,
+//												int which) {
+//											// send sms to open business
+//											openBusiness();
+//										}
+//
+//									})
+//							.setNegativeButton(R.string.not_open_now,
+//									new DialogInterface.OnClickListener() {
+//
+//										@Override
+//										public void onClick(
+//												DialogInterface dialog,
+//												int which) {
+//											jumpToFeiyingMain();
+//										}
+//
+//									}).show();
+//				} else if (status.equals(BusinessStatus.processing.name())) {
+//					jumpToFeiyingMain();
+//				}
 
 			} else if (result.equals("2")) {
 				// wrong auth code

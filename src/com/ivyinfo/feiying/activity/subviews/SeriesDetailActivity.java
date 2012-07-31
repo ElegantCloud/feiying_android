@@ -236,27 +236,29 @@ public class SeriesDetailActivity extends BaseVideoDetailActivity {
 		if (UserManager.getInstance().getUser().getUserkey().equals("")) {
 			// for non-login user, alert to login, otherwise it will consume
 			// his/her data stream
-			new AlertDialog.Builder(this)
-					.setTitle(R.string.alert_title)
-					.setMessage(R.string.non_login_user_play_video_alert_info)
-					.setPositiveButton(R.string.account_setting,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									login();
-								}
-							})
-					.setNegativeButton(R.string.still_play,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									playOuterVideo();
-								}
-							}).show();
+			playOuterVideo();
+			
+//			new AlertDialog.Builder(this)
+//					.setTitle(R.string.alert_title)
+//					.setMessage(R.string.non_login_user_play_video_alert_info)
+//					.setPositiveButton(R.string.account_setting,
+//							new DialogInterface.OnClickListener() {
+//
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//									login();
+//								}
+//							})
+//					.setNegativeButton(R.string.still_play,
+//							new DialogInterface.OnClickListener() {
+//
+//								@Override
+//								public void onClick(DialogInterface dialog,
+//										int which) {
+//									playOuterVideo();
+//								}
+//							}).show();
 		} else {
 			// first do authentication
 			setOnAuthReturnListener(playAuthLis);
@@ -303,51 +305,55 @@ public class SeriesDetailActivity extends BaseVideoDetailActivity {
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-				} else if (status.equals(BusinessStatus.processing.name())) {
-					// business processing
-					new AlertDialog.Builder(SeriesDetailActivity.this)
-							.setTitle(R.string.alert_title)
-							.setMessage(
-									R.string.processing_user_play_video_alert_info)
-
-							.setPositiveButton(R.string.still_play,
-									new DialogInterface.OnClickListener() {
-
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											playOuterVideo();
-										}
-									}).setNegativeButton(R.string.cancel, null)
-							.show();
 				} else {
-					// business unopened
-					new AlertDialog.Builder(SeriesDetailActivity.this)
-							.setTitle(R.string.alert_title)
-							.setMessage(
-									R.string.unopen_user_play_video_alert_info)
-							.setPositiveButton(R.string.account_setting,
-									new DialogInterface.OnClickListener() {
-
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											login();
-										}
-									})
-							.setNegativeButton(R.string.still_play,
-									new DialogInterface.OnClickListener() {
-
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											playOuterVideo();
-										}
-									}).show();
+					playOuterVideo();
 				}
+				
+//				else if (status.equals(BusinessStatus.processing.name())) {
+//					// business processing
+//					new AlertDialog.Builder(SeriesDetailActivity.this)
+//							.setTitle(R.string.alert_title)
+//							.setMessage(
+//									R.string.processing_user_play_video_alert_info)
+//
+//							.setPositiveButton(R.string.still_play,
+//									new DialogInterface.OnClickListener() {
+//
+//										@Override
+//										public void onClick(
+//												DialogInterface dialog,
+//												int which) {
+//											playOuterVideo();
+//										}
+//									}).setNegativeButton(R.string.cancel, null)
+//							.show();
+//				} else {
+//					// business unopened
+//					new AlertDialog.Builder(SeriesDetailActivity.this)
+//							.setTitle(R.string.alert_title)
+//							.setMessage(
+//									R.string.unopen_user_play_video_alert_info)
+//							.setPositiveButton(R.string.account_setting,
+//									new DialogInterface.OnClickListener() {
+//
+//										@Override
+//										public void onClick(
+//												DialogInterface dialog,
+//												int which) {
+//											login();
+//										}
+//									})
+//							.setNegativeButton(R.string.still_play,
+//									new DialogInterface.OnClickListener() {
+//
+//										@Override
+//										public void onClick(
+//												DialogInterface dialog,
+//												int which) {
+//											playOuterVideo();
+//										}
+//									}).show();
+//				}
 			}
 		}
 

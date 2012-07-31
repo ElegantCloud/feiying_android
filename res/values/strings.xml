@@ -128,7 +128,7 @@
     <string name="no_search_result">很抱歉，没有搜索到结果</string>
     <string name="detect_new_version">发现新版本【%s】，\n是否升级？</string>
     <string name="upgrade">升级</string>
-    <string name="about_p1">飞影为您提供高清、流畅的视频服务。您可包月看视频，免流量费，不占用原有套餐流量，随时随地欣赏丰富多彩的视频节目。</string>
+    <string name="about_p1">飞影为您提供高清、流畅的视频服务。您可包月看视频，享受视频流量包，随时随地欣赏丰富多彩的视频节目。</string>
     <string name="about_p2">飞影For Android Phone客户端是为Android手机用户精心打造的网络视频软件，通过细致贴心的界面设计、丰富多彩的视频节目、高清流畅的播放服务，为您带来不一样的在线视频观看体验！</string>
     <string name="about_p3">安徽联通用户请发送DZFY(5元/月)到1065583398订购飞影业务;退订飞影业务发送TDFY到1065583398。</string>
     <string name="copy_right">安徽联通  版权所有</string>
@@ -142,11 +142,11 @@
     <string name="submitting_feedback">正在提交反馈...</string>
     <string name="feedback_submit_ok">反馈提交成功，感谢您的支持！</string>
     <string name="select_type">选择类型</string>
-    <string name="open_business_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可看视频免流量费，不占用原有套餐流量。</string>
+    <string name="open_business_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可享受每月视频流量包。</string>
     <string name="open_business">立即开通</string>
     <string name="not_open_now">暂不开通</string>
     <string name="non_login_user_play_video_alert_info">您尚未登录,若继续观看，将占用您的套餐内流量。登录请点击账号设置。</string>
-    <string name="unopen_user_play_video_alert_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可看视频免流量费，不占用原有套餐流量。若继续观看，将占用您的套餐内流量。开通请点击账号设置。</string>
+    <string name="unopen_user_play_video_alert_info">您尚未开通飞影服务，开通飞影5元包月套餐，即可享受每月视频流量包。开通请点击账号设置。</string>
     <string name="still_play">继续观看</string>
     <string name="processing_user_play_video_alert_info">您的开通申请正在处理中，继续观看将占用流量。</string>
     <string name="business_processing">您的开通申请正在处理中，请稍后重试，或收到系统确认短信后重新登录。</string>

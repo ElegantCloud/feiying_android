@@ -8,8 +8,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.http.HttpEntity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -38,8 +36,6 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.ivyinfo.feiying.android.R;
-import com.ivyinfo.feiying.http.HttpUtils;
-import com.ivyinfo.feiying.http.HttpUtils.ResponseListener;
 
 public class FeiYingVideoplayer extends Activity {
 	private static final int MSG_PLAY_VIDEO = 100;
@@ -162,7 +158,6 @@ public class FeiYingVideoplayer extends Activity {
 
 		// set videoView
 		mVideoView = (VideoView) findViewById(R.id.videoView);
-
 		// set video focus
 		mVideoView.requestFocus();
 		// set videoView touch event
