@@ -29,7 +29,8 @@ public class SplashActivity extends Activity {
 		UserBean user = UserManager.getInstance()
 				.setUserInfo(userName, userkey);
 		user.setStatus(status);
-
+		Log.d("feiying", "user: " + user.toString());
+		
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int nowWidth = dm.widthPixels; // 当前分辨率 宽度
